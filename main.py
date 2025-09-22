@@ -6,10 +6,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 
-# Load env
 load_dotenv()
 
-# Setup Spotify API
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
@@ -17,14 +15,12 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope="user-read-playback-state,user-modify-playback-state"
 ))
 
-# Get device
 devices = sp.devices()
 if len(devices["devices"]) == 0:
     print(" No active Spotify device found. Please open Spotify app.")
     exit()
 device_id = devices["devices"][0]["id"]
 
-# Setup recognizer
 recognizer = sr.Recognizer()
 
 def record_audio(seconds=4, samplerate=16000):
@@ -34,7 +30,6 @@ def record_audio(seconds=4, samplerate=16000):
     sd.wait()
     return sr.AudioData(audio.tobytes(), samplerate, 2)
 
-# Main loop
 while True:
     audio_data = record_audio(3)
     try:

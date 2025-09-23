@@ -62,12 +62,16 @@ Dibuat pakai [Spotipy](https://spotipy.readthedocs.io/) + [SpeechRecognition](ht
 
 ## 🎤 Contoh Voice Command
 
-- `Spotify play`
-- `Spotify pause`
-- `Spotify next`
-- `Spotify previous`
-- `Spotify volume 40`
-- `Spotify stop`
+# kasih trigger word "sportify"
+
+- `play`
+- `pause`
+- `next`
+- `previous`
+- `volume "number`
+- `add` untuk add track ke playlist yang sedang berjalan
+- `exit sportify` untuk matikan trigger word
+- `stop` matikan program
 
 ---
 

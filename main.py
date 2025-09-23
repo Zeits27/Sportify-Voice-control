@@ -39,20 +39,20 @@ while True:
     audio_data = record_audio(3)
     try:
         command = recognizer.recognize_google(audio_data).lower()
-        print(f"👉 Heard: {command}")
+        print(f"Heard: {command}")
 
         if not listening_mode:
            
             if "spotify" in command:
                 listening_mode = True
-                print("🎤 Spotify mode ON. Say a command...")
+                print("Spotify mode ON. Say a command...")
             else:
-                print(" No trigger word detected.")
+                print("No trigger word detected.")
         else:
            
             if "play" in command:
                 sp.start_playback(device_id=device_id)
-                print("▶Playing...")
+                print("Playing...")
             elif "pause" in command:
                 sp.pause_playback(device_id=device_id)
                 print("Paused.")
@@ -70,18 +70,18 @@ while True:
                 except:
                     print("Format volume salah. Coba 'Spotify volume 30'")
             elif "add" in command:
-                playlist_id, track_id, added = ensure_track_in_current_playlist(sp)
+                playlist_id, playlist_name, track_id, track_name, artists, added = ensure_track_in_current_playlist(sp)
                 if playlist_id:
                     if added:
-                        print(f"Track {track_id} added to playlist {playlist_id}.")
+                        print(f"'{track_name}' by {artists} added to playlist '{playlist_name}'.")
                     else:
-                        print(f"Track {track_id} already exists in playlist {playlist_id}.")
+                        print(f"'{track_name}' by {artists} already exists in playlist '{playlist_name}'.")
             elif "stop" in command:
                 print("Stopping voice control.")
                 break
             elif "exit spotify" in command:
                 listening_mode = False
-                print("❌ Spotify mode OFF. Say 'spotify' again to re-activate.")
+                print("Spotify mode OFF. Say 'spotify' again to re-activate.")
             else:
                 print(" Command not recognized.")
 

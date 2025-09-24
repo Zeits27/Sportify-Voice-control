@@ -76,10 +76,35 @@ while True:
                         print(f"'{track_name}' by {artists} added to playlist '{playlist_name}'.")
                     else:
                         print(f"'{track_name}' by {artists} already exists in playlist '{playlist_name}'.")
-            elif "stop" in command:
+            elif "search" in command:
+                try:
+                    query = command.split("search", 1)[1].strip()
+                    if not query:
+                        print("No search query detected.")
+                    else:
+                        results = sp.search(q=query, type='track', limit=1)
+                        tracks = results.get('tracks', {}).get('items', [])
+                        if tracks:
+                            track = tracks[0]
+                            track_uri = track['uri']
+                            if device_id:
+                                sp.start_playback(device_id=device_id, uris=[track_uri])
+                                print(f"Playing '{track['name']}' by {', '.join(artist['name'] for artist in track['artists'])}")
+                            else:
+                                print("No active device found for playback.")
+                        else:
+                            print("No tracks found.")
+                except Exception as e:
+                    print(f"Error during search: {e}")
+
+
+                except sr.UnknownValueError:
+                    print("Could not understand audio")
+                    
+            elif "exit" in command:
                 print("Stopping voice control.")
                 break
-            elif "exit spotify" in command:
+            elif "stop" in command:
                 listening_mode = False
                 print("Spotify mode OFF. Say 'spotify' again to re-activate.")
             else:
